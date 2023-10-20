@@ -7,7 +7,7 @@ end
 
 
 -- function to check if a ray intersects with a box
-function boxRayIntersection(box, ray) -- written by Wolfy ^w^
+function boxRayIntersection(box, ray) -- written by Wolfy
   -- calculate the intersection times for each axis of the box
   ray.dir_inv = vec( 1/ray.dir.x, 1/ray.dir.y, 1/ray.dir.z)
   local t1x = (box.min.x - ray.origin.x) * ray.dir_inv.x
