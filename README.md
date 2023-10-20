@@ -1,4 +1,5 @@
 
+
 # Figura Piano
 A working piano that's a Figura player head!
 
@@ -9,6 +10,7 @@ You can spawn it in the world with this command. Simply copy and paste it and ru
 
 This avatar must be trusted for it to work. To do so, go to Figura > Permissions, click 'show disconnected avatars', and change 'Piano' to Max.
 Once in the world, simply punch the notes, or right-click them with a shield to play!
+Additionally, if you place a gold block 2 blocks under the piano, it will swap to a different texture ^^
 
 ## Piano Library
 Instead of punching notes manually, you can manually trigger note plays though your script. If you ping this, everyone will be able to hear your note play. This can be used to automate playing songs, or use custom inputs like with your keyboard (or a midi keyboard??). You'll need to script this yourself though. To access the piano library, first create a variable based on the avatar variable.
@@ -33,3 +35,8 @@ Remind me to make these things please >w>
 - Muting pianos (locally only) by closing the lid (or with `mutePiano()`)
 - Avatar addon which will prevent accidentally breaking blocks when swinging with first
 - Avatar addon which does note press calculations internally and pings to prevent desync issues
+
+## Credits
+- Model by TechnoCatza
+- Default texture by PierraNova
+- Fancy texture by Toast
