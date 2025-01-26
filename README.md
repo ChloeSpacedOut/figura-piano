@@ -8,6 +8,9 @@ You can spawn it in the world with this command. Simply copy and paste it and ru
 
 `/give @p minecraft:player_head{SkullOwner:{Id:[I;-1808656131,1539063829,-1082155612,-209998759]}}`
 
+For 1.21 and later, copy and paste this command and run it in game:
+`/give @p player_head[profile={id:[I;-1808656131,1539063829,-1082155612,-209998759]}] 1`
+
 This avatar must be trusted for it to work. To do so, go to Figura > Permissions, click 'show disconnected avatars', and change 'Piano' to Max.
 Once in the world, simply punch the notes, or right-click them with a shield to play!
 Additionally, if you place a gold block 2 blocks under the piano, it will swap to a different texture ^^
