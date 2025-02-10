@@ -62,22 +62,30 @@ function checkForEmptyKeys(keyXPos)
 end
 
 -- plays note ^^
-function playNote(pianoID, keyID, doesPlaySound, notePos)
+function playNote(pianoID, keyID, doesPlaySound, notePos, noteVolume)
   if pianos[pianoID].playingKeys[keyID] == nil then
     pianos[pianoID].playingKeys[keyID] = {}
+  end
+  if not noteVolume then
+    noteVolume = 2
   end
   pianos[pianoID].playingKeys[keyID] = world.getTime()
   if not doesPlaySound then return end
   if notePos then
-    sounds:playSound(keyPitches[keyID][2],notePos,2,keyPitches[keyID][1])
+    sounds:playSound(keyPitches[keyID][2],notePos,noteVolume,keyPitches[keyID][1])
   else
-    sounds:playSound(keyPitches[keyID][2],pianos[pianoID].pos,2,keyPitches[keyID][1])
+    sounds:playSound(keyPitches[keyID][2],pianos[pianoID].pos,noteVolume,keyPitches[keyID][1])
   end
   
 end
 
+function playSound(keyID,notePos,noteVolume)
+  sounds:playSound(keyPitches[keyID][2],notePos,noteVolume,keyPitches[keyID][1])
+end
+
 -- stores important functions so that other avatars can access them through avatarVars() in the world API
 avatar:store("playNote",playNote)
+avatar:store("playSound",playSound)
 avatar:store("validPos", function(pianoID) return pianos[pianoID] ~= nil end)
 avatar:store("getPlayingKeys", function(pianoID) return pianos[pianoID] ~= nil and pianos[pianoID].playingKeys or nil end)
 
@@ -93,6 +101,12 @@ function events.world_tick()
   for k,player in pairs(world.getPlayers()) do repeat
     if not (player:isUsingItem() or player:getSwingTime() == 1 or debug) then break end
     local pos = player:getPos()
+    local avatarVars = world:avatarVars()[player:getUUID()]
+    local eyeOffset
+    if avatarVars then 
+      eyeOffset = avatarVars.eyePos
+    end
+    if not eyeOffset then eyeOffset = 0 end
 
     -- run this code for every piano
     for pianoID,pianoData in pairs(pianos) do repeat
@@ -106,7 +120,7 @@ function events.world_tick()
       local pivot = vec(0.5,0,0.5)
       local worldOffset = pianoPos + pivot
 
-      local eyePos = rotateAroundPivot(-pianoRot,vec(pos.x,pos.y+player:getEyeHeight(),pos.z)-worldOffset,vec(0,0,0))
+      local eyePos = rotateAroundPivot(-pianoRot,vec(pos.x,pos.y+player:getEyeHeight(),pos.z)-worldOffset+eyeOffset,vec(0,0,0))
       local lookDir = rotateAroundPivot(-pianoRot,player:getLookDir(),vec(0,0,0))
 
       local ray = {origin = eyePos, dir = lookDir}
